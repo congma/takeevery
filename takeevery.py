@@ -93,8 +93,8 @@ def ievery(iterable, n):
     iteration stops early, without exhausting the current sub-iterator, the
     next sub-iterator will resume from the place next to the last stop.
 
-    Therefore, it probably doesn't do what you mean to do by creating a series
-    of sub-iterators from the "iterable" without starting them in order.
+    Therefore, it probably doesn't do what you mean to do by creating the next
+    sub-iterator without starting the current one.
 
     Example: using a series of sub-iterators to take every 3 elements from an
     integer sequence.
