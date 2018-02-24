@@ -2,8 +2,6 @@
 iterable is exhausted.
 
 Example: taking every N elements from nothing -- nothing is taken.
->>> from six import advance_iterator
->>> import six.moves as sm
 >>> for t in every([], 11):
 ...     print(t)
 
@@ -15,18 +13,18 @@ more.
 ...         yield i
 ...         i += 1
 >>> t = every(integers(), 3)
->>> advance_iterator(t)
+>>> next(t)
 [0, 1, 2]
->>> advance_iterator(t)
+>>> next(t)
 [3, 4, 5]
 
 Example: taking nothing from an infinite generator -- nothing is ever taken.
 >>> tp = every(integers(), 0)
->>> advance_iterator(tp)
+>>> next(tp)
 Traceback (most recent call last):
     ...
 StopIteration
->>> advance_iterator(tp)
+>>> next(tp)
 Traceback (most recent call last):
     ...
 StopIteration
@@ -42,7 +40,7 @@ Example: taking more than what is available -- exhausts everything.
 
 Example: taking nothing from nothing -- nothing is taken.
 >>> tp = every([], 0)
->>> advance_iterator(tp)
+>>> next(tp)
 Traceback (most recent call last):
     ...
 StopIteration
@@ -69,7 +67,6 @@ Example: taking from heterogeneous sequence -- nothing special.
 [[[[]]], [8]]
 """
 
-from six import advance_iterator
 import six.moves as sm
 
 
@@ -89,7 +86,7 @@ def every(iterable, n):
         batch = []
         for i in sm.range(n):
             try:
-                batch.append(advance_iterator(it))
+                batch.append(next(it))
             except StopIteration:
                 toexit = True
         if not batch:
