@@ -133,18 +133,8 @@ def every(iterable, n):
     [2, 3]
     [4]
     """
-    toexit = False
-    it = iter(iterable)
-    while not toexit:
-        batch = []
-        for i in sm.range(n):
-            try:
-                batch.append(next(it))
-            except StopIteration:
-                toexit = True
-        if not batch:
-            break
-        yield batch
+    for batch_iter in ievery(iterable, n):
+        yield list(batch_iter)
 
 
 if __name__ == "__main__":
