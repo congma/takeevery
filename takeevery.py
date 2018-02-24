@@ -2,6 +2,7 @@
 iterable is exhausted.
 
 Example: taking every N elements from nothing -- nothing is taken.
+>>> import six
 >>> for t in every([], 11):
 ...     print(t)
 
@@ -19,7 +20,7 @@ more.
 [3, 4, 5]
 
 Example: taking nothing from an infinite generator -- nothing is ever taken.
->>> tp = every(integers(), 0)
+>>> tp = ievery(integers(), 0)
 >>> next(tp)
 Traceback (most recent call last):
     ...
@@ -34,9 +35,11 @@ Example: taking nothing from a finite sequence -- nothing is ever taken.
 ...     print(item)
 
 Example: taking more than what is available -- exhausts everything.
->>> for item in every([0, 1], 10):
-...     print(item)
-[0, 1]
+>>> for item_iter in ievery([0, 1], 10):
+...     for item in item_iter:
+...         six.print_(item, end=" ")
+...     six.print_()
+0 1 
 
 Example: taking nothing from nothing -- nothing is taken.
 >>> tp = every([], 0)
