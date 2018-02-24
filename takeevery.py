@@ -67,7 +67,60 @@ Example: taking from heterogeneous sequence -- nothing special.
 [[[[]]], [8]]
 """
 
+
+from itertools import chain, islice
 import six.moves as sm
+
+
+def ievery(iterable, n):
+    """ievery(iterable, n) generates "sub-iterator" objects.
+
+    Each generated sub-iterator object can be exhausted by at most n
+    iterations, and the first sub-iterable yields the first n (or all) elements
+    from "iterable", and so on.
+
+    Notice that apart from a look-ahead of size one to determine whether the
+    "ievery" generator object should reach the stopped state as early as it
+    can, this generator does not exhaust the original iterable.  The
+    sub-iterators yielded by "ievery" only define a pattern of iteration to be
+    applied to the original iterable.  The actual consumption of the original
+    iterable must be done by starting the sub-iterators.
+
+    A consequence is that during the consumption of sub-iterators, if the
+    iteration stops early, without exhausting the current sub-iterator, the
+    next sub-iterator will resume from the place next to the last stop.
+
+    Example: using a series of sub-iterators to take every 3 elements from an
+    integer sequence.
+    >>> import six
+    >>> for subiter in ievery(range(5), 3):
+    ...     for item in subiter:
+    ...         six.print_(item, end=" ")
+    ...     six.print_()
+    0 1 2 
+    3 4 
+
+    Example: early break.
+    >>> for i, b in enumerate(ievery(range(13), 3)):
+    ...     for j, t in enumerate(b):
+    ...         six.print_(t, end=" ")
+    ...         if i == 1 and j == 0:
+    ...            break
+    ...     six.print_()
+    0 1 2 
+    3 
+    4 5 6 
+    7 8 9 
+    10 11 12 
+    """
+    it = iter(iterable)
+    while True:
+        raw_batch = islice(it, n)
+        try:
+            head = next(raw_batch)
+        except StopIteration:
+            break
+        yield chain((head,), raw_batch)
 
 
 def every(iterable, n):
