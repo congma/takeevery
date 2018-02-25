@@ -24,6 +24,6 @@ job_mirror:
   stage: mirror
   script:
     - git remote add --mirror=push github git@github.com:congma/takeevery.git
-    - git push github --all
+    - git push github
   tags:
     - shared
