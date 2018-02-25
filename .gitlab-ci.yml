@@ -1,5 +1,5 @@
 before_script:
-  - apt-get update -qq && apt-get install -y -qq python-pip python3-pip pypy
+  - apt-get update -qq && apt-get install -y -qq python-pip python3-pip pypy tox
 
 test:
   script:
