@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/congma/takeevery.svg?branch=master)](https://travis-ci.org/congma/takeevery)
+[![Build status](https://gitlab.com/congma/takeevery/badges/master/build.svg)](https://gitlab.com/congma/takeevery/commits/master)
 
 The module provides a Python generator, `every(iterable, n)` that yields lists
 of size at most `n` from `iterable`, until the iterable is exhausted.
