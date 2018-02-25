@@ -5,6 +5,8 @@ before_script:
   - echo "$MIRROR_SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
+  - echo "$MIRROR_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
   - git config --global user.email "congma@obspm.fr"
   - git config --global user.name "Cong Ma"
   - git config --global github.user "congma"
