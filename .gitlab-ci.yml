@@ -3,30 +3,10 @@ before_script:
 
 stages:
   - test
-  - mirror
 
 job_test:
   stage: test
   script:
     - tox
-  tags:
-    - shared
-
-job_mirror:
-  stage: mirror
-  before_script:
-    - 'which ssh-agent || ( apt-get update -qq && apt-get install openssh-client -qq -y )'
-    - eval $(ssh-agent -s)
-    - echo "$MIRROR_SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-    - echo "$MIRROR_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-    - chmod 644 ~/.ssh/known_hosts
-    - git config --global user.email "congma@obspm.fr"
-    - git config --global user.name "Cong Ma"
-    - git config --global github.user "congma"
-  script:
-    - git remote add --mirror=push github git@github.com:congma/takeevery.git
-    - git push github
   tags:
     - shared
